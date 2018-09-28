@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'swiftScan'
-    s.version      = '1.1.6'
+    s.version      = '1.1.7'
     s.summary      = 'ios swift scan wrapper'
     s.homepage     = 'https://github.com/MxABC/swiftScan'
     s.license      = 'MIT'
@@ -9,4 +9,5 @@ Pod::Spec.new do |s|
     s.source       = {:git => 'https://github.com/tokene/swiftScan.git', :tag => s.version}
     s.ios.deployment_target = "8.0"
     s.source_files = 'Source/*.swift'
+    s.resource = "swiftScan/CodeScan.bundle"
 end
