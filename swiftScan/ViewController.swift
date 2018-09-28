@@ -349,34 +349,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 
-    // MARK: - ----相册选择图片识别二维码 （条形码没有找到系统方法）
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        picker.dismiss(animated: true, completion: nil)
-        
-        var image:UIImage? = info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage
-        
-        if (image == nil )
-        {
-            image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage
-        }
-
-        if(image == nil) {
-            return
-        }
-
-        if(image != nil) {
-            let arrayResult = LBXScanWrapper.recognizeQRImage(image: image!)
-            if arrayResult.count > 0 {
-                let result = arrayResult[0]
-
-                showMsg(title: result.strBarCodeType, message: result.strScanned)
-
-                return
-            }
-        }
-        showMsg(title: "", message: "识别失败")
-    }
-
     
     func showMsg(title:String?,message:String?)
     {
@@ -401,4 +373,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NSLog("scanResult:\(scanResult)")
     }
 
+}
+
+extension ViewController {
+    
+    // MARK: - ----相册选择图片识别二维码 （条形码没有找到系统方法）
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        var image:UIImage? = info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage
+        
+        if (image == nil )
+        {
+            image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage
+        }
+        
+        if(image == nil) {
+            return
+        }
+        
+        if(image != nil) {
+            let arrayResult = LBXScanWrapper.recognizeQRImage(image: image!)
+            if arrayResult.count > 0 {
+                let result = arrayResult[0]
+                
+                showMsg(title: result.strBarCodeType, message: result.strScanned)
+                
+                return
+            }
+        }
+        showMsg(title: "", message: "识别失败")
+    }
 }
